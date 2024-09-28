@@ -1,34 +1,37 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import StartScreen from './Screens/Start/StartScreen'; 
-import ConfirmScreen from './Screens/Confirm/ConfirmScreen';
-import GameScreen from './Screens/Game/GameScreen';
-import GameOverScreen from './Screens/Game/GameOverScreen';
-
-const Stack = createStackNavigator();
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import Game from './screens/Game';
+import Start from './screens/Start';
+import { commonStyles } from './components/Color';
+import Background from './components/Background';
 
 const App = () => {
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [lastDigit, setLastDigit] = useState(0);
+
+  const handleConfirmRegister = (number) => {
+    setLastDigit(number);
+    setIsRegistered(true);
+  };
+
+  const handleRestart = () => {
+    setLastDigit(0);
+    setIsRegistered(false);
+  };
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Start" component={StartScreen} />
-        <Stack.Screen name="Confirm" component={ConfirmScreen} />
-        <Stack.Screen name="Game" component={GameScreen} />
-        <Stack.Screen name="GameOver" component={GameOverScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={commonStyles.container}>
+      <Background>
+        {isRegistered ? (
+          <Game handleRestart={handleRestart} lastDigit={lastDigit} />
+        ) : (
+          <Start handleConfirmRegister={handleConfirmRegister} />
+        )}
+      </Background>
+    </View>
   );
 };
 
 export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
