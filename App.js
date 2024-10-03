@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Game from './screens/Game';
-import Start from './screens/Start';
-import { commonStyles } from './components/Color';
-import Background from './components/Background';
+import Game from './Screens/Game';
+import Start from './Screens/Start';
+import { commonStyles } from './Components/Color';
+import Background from './Components/Background';
 
 const App = () => {
   const [isRegistered, setIsRegistered] = useState(false);
